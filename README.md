@@ -1,74 +1,90 @@
-# YT Downloader
+# YT Downloader Pro
 
-A simple Windows Python GUI for downloading YouTube videos that you own or have permission to save.
+A modern Windows desktop GUI for downloading YouTube videos that you own or have permission to save.
 
-## Features
+## Highlights
 
-- Paste a YouTube URL
-- MP4 video or MP3 audio
-- Best / 4K / 1440p / 1080p / 720p / 480p selection
-- Choose output folder
-- Progress bar
-- Responsive GUI using a background download thread
-- Uses `yt-dlp`
-- FFmpeg support for merging high-quality streams and MP3 conversion
+- Modern CustomTkinter interface
+- Dark / Light / System theme selector
+- Paste + Analyze workflow
+- Video thumbnail preview
+- Video title, channel, duration and view count
+- Dynamic quality detection
+- MP4 video downloads
+- MP3 audio extraction with selectable bitrate
+- 4K / 1440p / 1080p / 720p / 480p / 360p support when available
+- Progress percentage, speed and ETA
+- Cancel download button
+- Open output folder button
+- FFmpeg status badge
+- Graceful video fallback when FFmpeg is unavailable
+- Background threads so the UI stays responsive
+
+## Requirements
+
+- Python 3.11+
+- FFmpeg recommended for high-quality video merging
+- FFmpeg required for MP3 conversion
 
 ## Setup
 
-### 1. Install Python
-
-Install Python 3.11+ and make sure **Add Python to PATH** is enabled.
-
-### 2. Create a virtual environment
+Open PowerShell in the project folder.
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-```
-
-### 3. Install dependencies
-
-```powershell
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 4. Install FFmpeg
+### Install FFmpeg on Windows
 
-FFmpeg is recommended for high-quality MP4 merging and required for MP3 conversion.
+```powershell
+winget install --id Gyan.FFmpeg -e
+```
 
-Verify the installation:
+Close and reopen PowerShell/PyCharm after installation, then verify:
 
 ```powershell
 ffmpeg -version
 ```
 
-### 5. Run the app
+## Run
 
 ```powershell
+python youtube_downloader.py
+```
+
+## If you already cloned an older version
+
+Pull the latest code and update dependencies:
+
+```powershell
+git pull origin main
+python -m pip install -r requirements.txt
 python youtube_downloader.py
 ```
 
 ## Build a Windows EXE
 
 ```powershell
-pyinstaller --noconsole --onefile --name "YT-Downloader" youtube_downloader.py
+pyinstaller --noconsole --onefile --name "YT-Downloader-Pro" youtube_downloader.py
 ```
 
-The executable will be created at:
+The executable will be created in:
 
 ```text
-dist\YT-Downloader.exe
+dist\YT-Downloader-Pro.exe
 ```
 
-> FFmpeg still needs to be available on the target computer's PATH unless you package it separately.
+FFmpeg still needs to be available on the target computer's PATH for MP3 conversion and high-quality video/audio merging unless you bundle it separately.
 
 ## Update yt-dlp
 
-If YouTube changes and downloads stop working:
+YouTube changes regularly. If extraction stops working, update yt-dlp:
 
 ```powershell
-pip install -U yt-dlp
+python -m pip install -U yt-dlp
 ```
 
 ## Usage note
