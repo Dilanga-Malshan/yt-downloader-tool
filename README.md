@@ -3,13 +3,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38681883487/artifacts/11948557766">
+  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38683061124/artifacts/11949380493">
     <img src="assets/download-button.svg" alt="DOWNLOAD &amp; INSTALL — Windows 10/11" width="360" height="74">
   </a>
 </p>
 
 <p align="center">
-  <strong>Version 1.2.1 · Windows x64 · Python, FFmpeg and Deno included</strong><br>
+  <strong>Version 1.3.0 · Windows x64 · Python, FFmpeg and Deno included</strong><br>
   GitHub sign-in required to download the ZIP. Extract it and run <code>YT-Downloader-Pro-Setup.exe</code>.<br>
   <a href="#install-on-windows-no-python-required">Installation instructions</a> ·
   <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/workflows/windows-installer.yml">All installer builds</a>
@@ -30,7 +30,7 @@ A modern Windows desktop GUI for downloading YouTube videos that you own or have
 - Modern studio layout with a sidebar, dedicated link bar, settings and video preview
 - Interface styling: purple-to-cyan gradient buttons, frosted-style panels and matching app icon
 - Readable typography, soft borders and Dark / Light / System themes
-- Scrollable panels and persistent download controls on smaller windows
+- Scroll-free settings and preview panels with persistent download controls
 - Paste + Analyze workflow
 - Video thumbnail preview
 - Video title, channel, duration and view count
@@ -46,6 +46,19 @@ A modern Windows desktop GUI for downloading YouTube videos that you own or have
 - Background threads so the UI stays responsive
 
 The desktop glass appearance uses frosted-style colour layers; it does not blur content behind the window.
+
+## Build security checks
+
+Every installer build must pass these checks before the download artifact is published:
+
+- Python dependency vulnerability audit with `pip-audit` (strict mode).
+- SHA256 verification of FFmpeg and Deno archives against publisher-provided checksums.
+- Microsoft Defender scans of the packaged app and final Setup.exe with updated signatures.
+- UI layout and startup tests, including the minimum window size.
+
+The download ZIP includes `SHA256.txt` and a `security` folder containing scan results, dependency audit results, tool checksums and installed dependency versions. A failed or unavailable security check blocks installer publication. Diagnostic reports remain available in the workflow's **security-reports** artifact.
+
+These checks do not guarantee the absence of malware or unknown vulnerabilities. The installer remains unsigned, so Windows may display an unknown-publisher warning.
 
 ## Requirements
 
@@ -95,7 +108,7 @@ python youtube_downloader.py
 ## Install on Windows (no Python required)
 
 <p align="center">
-  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38681883487/artifacts/11948557766">
+  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38683061124/artifacts/11949380493">
     <img src="assets/download-button.svg" alt="Download YT Downloader Pro for Windows" width="360" height="74">
   </a>
 </p>
