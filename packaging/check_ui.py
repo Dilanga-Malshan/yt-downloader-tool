@@ -27,7 +27,15 @@ try:
             app._set_busy(True, cancellable=True)
             assert app.cancel_btn.cget("state") == "normal"
             app._set_busy(False)
+            app._apply_video_info(
+                {"title": "A long video title showing how controls remain visible in the compact layout " * 3,
+                 "uploader": "A channel with a very long display name", "duration": 300, "view_count": 2000},
+                ["Best", "2160p (4K)", "1440p", "1080p", "720p"], None,
+            )
             app.update()
+            for widget in (app.open_folder_btn, app.resolution_label):
+                panel = widget.master if widget is app.resolution_label else widget.master.master
+                assert widget.winfo_rooty() + widget.winfo_height() <= panel.winfo_rooty() + panel.winfo_height(), "Panel clips a control"
             for widget in (app.download_btn, app.cancel_btn, app.analyze_btn, app.url_entry,
                            app.mode_selector, app.quality_menu, app.folder_entry,
                            app.choose_folder_btn, app.open_folder_btn,

@@ -119,6 +119,7 @@ class YouTubeDownloaderApp(ctk.CTk):
         self.grid_rowconfigure(0, weight=1)
 
         def label(parent, text, size=13, bold=False, color=ink, **kwargs):
+            kwargs.setdefault("height", 20)
             return ctk.CTkLabel(parent, text=text, text_color=color,
                                 font=ctk.CTkFont(family="Segoe UI", size=size,
                                                 weight="bold" if bold else "normal"), **kwargs)
@@ -228,7 +229,7 @@ class YouTubeDownloaderApp(ctk.CTk):
         self.open_folder_btn.grid(row=0, column=1, sticky="ew", padx=(4, 0))
 
         label(right, "VIDEO PREVIEW", 11, True, muted).grid(row=0, column=0, sticky="w", padx=16, pady=(8, 4))
-        self.thumbnail_frame = ctk.CTkFrame(right, height=100, fg_color=inset, corner_radius=12)
+        self.thumbnail_frame = ctk.CTkFrame(right, height=90, fg_color=inset, corner_radius=12)
         self.thumbnail_frame.grid(row=1, column=0, sticky="ew", padx=16, pady=(0, 4))
         self.thumbnail_frame.grid_propagate(False)
         self.thumbnail_frame.grid_columnconfigure(0, weight=1)
@@ -424,15 +425,15 @@ class YouTubeDownloaderApp(ctk.CTk):
         quality_text = ", ".join(quality_values[1:4]) or "Best available"
 
         self.title_label.configure(text=title if len(title) <= 68 else title[:65] + "…")
-        self.channel_label.configure(text=f"Channel: {uploader[:35]}")
+        self.channel_label.configure(text=f"Channel: {uploader[:28]}")
         self.duration_label.configure(text=f"Duration: {duration}")
         self.views_label.configure(text=f"Views: {views}")
-        self.resolution_label.configure(text=f"Available quality: {quality_text}")
+        self.resolution_label.configure(text=f"Quality: {quality_text}")
 
         if thumbnail_bytes:
             try:
                 image = Image.open(io.BytesIO(thumbnail_bytes)).convert("RGB")
-                image.thumbnail((280, 100))
+                image.thumbnail((280, 90))
                 self.thumbnail_image = ctk.CTkImage(
                     light_image=image,
                     dark_image=image,
