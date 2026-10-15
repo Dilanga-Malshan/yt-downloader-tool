@@ -18,7 +18,7 @@
 <text x="77" y="240" font-size="22" fill="#cfcee2">Keep the good stuff. Beautiful quality. Effortlessly saved.</text>
 <rect x="77" y="269" width="164" height="32" rx="16" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/><text x="159" y="291" text-anchor="middle" font-size="13" fill="#e4e1f4">WINDOWS 10 / 11</text>
 <rect x="254" y="269" width="151" height="32" rx="16" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/><text x="329" y="291" text-anchor="middle" font-size="13" fill="#e4e1f4">NO PYTHON SETUP</text>
-<rect x="418" y="269" width="112" height="32" rx="16" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/><text x="474" y="291" text-anchor="middle" font-size="13" fill="#e4e1f4">v1.2.1</text>
+<rect x="418" y="269" width="112" height="32" rx="16" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/><text x="474" y="291" text-anchor="middle" font-size="13" fill="#e4e1f4">v1.3.0</text>
 </g>
 <g transform="translate(965 156)"><circle r="85" fill="url(#glass)" stroke="#ffffff" stroke-opacity=".2"/><circle r="65" fill="url(#accent)" opacity=".16"/><path d="M0-37v50m-21-21 21 21 21-21M-32 28v14h64V28" fill="none" stroke="#e7e6ff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g>
 </g><rect x="1" y="1" width="1198" height="368" rx="28" fill="none" stroke="#c9d8fb" stroke-opacity=".35"/>
