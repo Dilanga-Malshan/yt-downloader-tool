@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="74" viewBox="0 0 660 136" role="img" aria-label="Download and install YT Downloader Pro for Windows">
+<defs><linearGradient id="g"><stop stop-color="#9758d8"/><stop offset="1" stop-color="#23b4d1"/></linearGradient><linearGradient id="shine" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+<rect x="7" y="15" width="646" height="113" rx="24" fill="#151b38" opacity=".35"/><rect x="5" y="5" width="650" height="114" rx="24" fill="url(#g)" stroke="#d8d4ff" stroke-opacity=".6"/><rect x="6" y="6" width="648" height="56" rx="23" fill="url(#shine)"/>
+<rect x="25" y="27" width="70" height="70" rx="17" fill="#ffffff" fill-opacity=".13" stroke="#ffffff" stroke-opacity=".25"/>
+<path d="M60 41v28m-12-12 12 12 12-12M42 77v7h36v-7" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="119" y="58" font-family="Segoe UI,Arial,sans-serif" font-size="33" font-weight="700" fill="white">DOWNLOAD &amp; INSTALL</text>
+<text x="120" y="88" font-family="Segoe UI,Arial,sans-serif" font-size="18" fill="#f0efff">Aurora Glass · Windows x64 · Setup.exe</text><path d="m610 50 12 12-12 12" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
