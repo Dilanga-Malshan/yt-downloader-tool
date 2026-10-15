@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/app-icon.png" alt="YT Downloader Pro icon" width="110">
+  <img src="assets/aurora-icon.png" alt="YT Downloader Pro icon" width="110">
 </p>
 
 <h1 align="center">YT Downloader Pro</h1>
@@ -7,13 +7,13 @@
 <p align="center">Download and install the Windows desktop app — no Python setup needed.</p>
 
 <p align="center">
-  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38678686418/artifacts/11947772123">
+  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38680846841/artifacts/11948111280">
     <img src="assets/download-install-button.svg" alt="DOWNLOAD &amp; INSTALL — Windows 10/11" width="520">
   </a>
 </p>
 
 <p align="center">
-  <strong>Version 1.1.0 · Windows x64 · Python, FFmpeg and Deno included</strong><br>
+  <strong>Version 1.2.0 · Windows x64 · Python, FFmpeg and Deno included</strong><br>
   GitHub sign-in required to download the ZIP. Extract it and run <code>YT-Downloader-Pro-Setup.exe</code>.<br>
   <a href="#install-on-windows-no-python-required">Installation instructions</a> ·
   <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/workflows/windows-installer.yml">All installer builds</a>
@@ -28,7 +28,8 @@ A modern Windows desktop GUI for downloading YouTube videos that you own or have
 ## Highlights
 
 - Modern studio layout with a sidebar, dedicated link bar, settings and video preview
-- Red accent buttons, readable typography and theme-aware cards
+- Aurora Glass styling: purple-to-cyan gradient buttons, frosted-style panels and matching app icon
+- Readable typography, soft borders and Dark / Light / System themes
 - Scrollable panels and persistent download controls on smaller windows
 - Dark / Light / System theme selector
 - Paste + Analyze workflow
@@ -44,6 +45,8 @@ A modern Windows desktop GUI for downloading YouTube videos that you own or have
 - FFmpeg status badge
 - Graceful video fallback when FFmpeg is unavailable
 - Background threads so the UI stays responsive
+
+The desktop glass appearance uses frosted-style colour layers; it does not blur content behind the window.
 
 ## Requirements
 
