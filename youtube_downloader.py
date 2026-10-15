@@ -24,7 +24,7 @@ RESOURCE_DIR = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent))
 APP_ICON = RESOURCE_DIR / "assets" / "app-icon.ico"
 
 APP_TITLE = "YT Downloader Pro"
-APP_SIZE = "1040x760"
+APP_SIZE = "1180x850"
 DEFAULT_DIR = str(Path.home() / "Downloads")
 
 ctk.set_appearance_mode("dark")
@@ -83,8 +83,10 @@ class YouTubeDownloaderApp(ctk.CTk):
         if sys.platform == "win32":
             # CustomTkinter schedules its default icon after startup.
             self.after(250, lambda: self.iconbitmap(str(APP_ICON)))
-        self.geometry(APP_SIZE)
-        self.minsize(920, 680)
+        width = min(1180, max(1060, self.winfo_screenwidth() - 80))
+        height = min(850, max(680, self.winfo_screenheight() - 100))
+        self.geometry(f"{width}x{height}")
+        self.minsize(1060, 680)
 
         self.url_var = tk.StringVar()
         self.output_var = tk.StringVar(value=DEFAULT_DIR)
@@ -104,297 +106,160 @@ class YouTubeDownloaderApp(ctk.CTk):
         self._refresh_ffmpeg_status()
 
     def _build_ui(self):
-        self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(1, weight=1)
+        bg = ("#f3f5fa", "#0b0e14")
+        surface = ("#ffffff", "#141923")
+        inset = ("#edf0f6", "#0e131c")
+        border = ("#e0e5ee", "#252d3c")
+        ink = ("#172033", "#f2f5fc")
+        muted = ("#637086", "#95a1b5")
+        accent, hover = "#ef233c", "#cc1830"
+        self.configure(fg_color=bg)
+        self.grid_columnconfigure(1, weight=1)
+        self.grid_rowconfigure(0, weight=1)
 
-        header = ctk.CTkFrame(self, corner_radius=0, fg_color="transparent")
-        header.grid(row=0, column=0, sticky="ew", padx=28, pady=(24, 12))
-        header.grid_columnconfigure(0, weight=1)
+        def label(parent, text, size=13, bold=False, color=ink, **kwargs):
+            return ctk.CTkLabel(parent, text=text, text_color=color,
+                                font=ctk.CTkFont(family="Segoe UI", size=size,
+                                                weight="bold" if bold else "normal"), **kwargs)
 
-        brand = ctk.CTkFrame(header, fg_color="transparent")
-        brand.grid(row=0, column=0, sticky="w")
+        def button(parent, text, command, primary=False, **kwargs):
+            return ctk.CTkButton(parent, text=text, command=command, height=42,
+                                corner_radius=10, fg_color=accent if primary else inset,
+                                hover_color=hover if primary else border,
+                                text_color="white" if primary else ink,
+                                font=ctk.CTkFont(family="Segoe UI", size=13, weight="bold"),
+                                **kwargs)
 
-        ctk.CTkLabel(
-            brand,
-            text="YT Downloader Pro",
-            font=ctk.CTkFont(size=28, weight="bold"),
-        ).pack(anchor="w")
+        sidebar = ctk.CTkFrame(self, width=184, corner_radius=0, fg_color=surface)
+        sidebar.grid(row=0, column=0, sticky="nsew")
+        sidebar.grid_propagate(False)
+        sidebar.grid_columnconfigure(0, weight=1)
+        sidebar.grid_rowconfigure(5, weight=1)
+        self.brand_image = ctk.CTkImage(Image.open(RESOURCE_DIR / "assets" / "app-icon.png"), size=(48, 48))
+        ctk.CTkLabel(sidebar, text="", image=self.brand_image).grid(row=0, column=0, sticky="w", padx=22, pady=(28, 12))
+        label(sidebar, "YT Downloader", 18, True).grid(row=1, column=0, sticky="w", padx=22)
+        label(sidebar, "P R O  /  D E S K T O P", 10, color=muted).grid(row=2, column=0, sticky="w", padx=22, pady=(0, 36))
+        label(sidebar, "   Download studio", 13, True, color="white", fg_color=accent,
+              corner_radius=10, height=44, anchor="w").grid(row=3, column=0, sticky="ew", padx=14)
+        button(sidebar, "Open downloads", self.open_output_folder).grid(row=4, column=0, sticky="ew", padx=14, pady=10)
+        label(sidebar, "APPEARANCE", 10, True, muted).grid(row=6, column=0, sticky="w", padx=22, pady=(10, 8))
+        self.theme_menu = ctk.CTkOptionMenu(sidebar, values=["Dark", "Light", "System"],
+                                          variable=self.theme_var, command=self._change_theme,
+                                          fg_color=inset, button_color=border, button_hover_color=accent,
+                                          text_color=ink, dropdown_fg_color=surface, dropdown_text_color=ink,
+                                          corner_radius=9, height=36, width=140)
+        self.theme_menu.grid(row=7, column=0, padx=18, pady=(0, 18))
+        label(sidebar, "Made by Dilanga Malshan", 10, color=muted).grid(row=8, column=0, padx=12, pady=(0, 20))
 
-        ctk.CTkLabel(
-            brand,
-            text="Modern desktop downloader powered by yt-dlp",
-            text_color=("gray45", "gray70"),
-            font=ctk.CTkFont(size=13),
-        ).pack(anchor="w", pady=(3, 0))
+        main = ctk.CTkFrame(self, fg_color="transparent")
+        main.grid(row=0, column=1, sticky="nsew", padx=28, pady=24)
+        main.grid_columnconfigure(0, weight=1)
+        main.grid_rowconfigure(2, weight=1)
+        heading = ctk.CTkFrame(main, fg_color="transparent")
+        heading.grid(row=0, column=0, sticky="ew", pady=(0, 20))
+        heading.grid_columnconfigure(0, weight=1)
+        label(heading, "Your next download.", 29, True).grid(row=0, column=0, sticky="w")
+        label(heading, "One link. Your favorite quality. Saved locally.", 13, color=muted).grid(row=1, column=0, sticky="w", pady=(4, 0))
+        self.ffmpeg_badge = label(heading, "Checking FFmpeg…", 11, corner_radius=8, padx=12, height=30)
+        self.ffmpeg_badge.grid(row=0, column=1, rowspan=2, sticky="e", padx=(10, 0))
 
-        header_actions = ctk.CTkFrame(header, fg_color="transparent")
-        header_actions.grid(row=0, column=1, sticky="e")
+        link_card = ctk.CTkFrame(main, fg_color=surface, corner_radius=16, border_width=1, border_color=border)
+        link_card.grid(row=1, column=0, sticky="ew", pady=(0, 18))
+        link_card.grid_columnconfigure(0, weight=1)
+        label(link_card, "01  /  ADD YOUR LINK", 11, True, muted).grid(row=0, column=0, sticky="w", padx=20, pady=(16, 8))
+        url_row = ctk.CTkFrame(link_card, fg_color="transparent")
+        url_row.grid(row=1, column=0, sticky="ew", padx=20, pady=(0, 20))
+        url_row.grid_columnconfigure(0, weight=1)
+        self.url_entry = ctk.CTkEntry(url_row, textvariable=self.url_var, height=46,
+                                     placeholder_text="Paste a YouTube video link here…",
+                                     fg_color=inset, border_color=border, corner_radius=10, text_color=ink)
+        self.url_entry.grid(row=0, column=0, sticky="ew")
+        self.url_entry.bind("<Return>", lambda event: self.start_analyze() if self.analyze_btn.cget("state") == "normal" else None)
+        button(url_row, "Paste", self._paste_url, width=68).grid(row=0, column=1, padx=8)
+        self.analyze_btn = button(url_row, "Analyze link", self.start_analyze, primary=True, width=112)
+        self.analyze_btn.grid(row=0, column=2)
 
-        self.ffmpeg_badge = ctk.CTkLabel(
-            header_actions,
-            text="Checking FFmpeg...",
-            corner_radius=10,
-            padx=12,
-            pady=6,
-        )
-        self.ffmpeg_badge.pack(side="left", padx=(0, 10))
-
-        self.theme_menu = ctk.CTkOptionMenu(
-            header_actions,
-            values=["Dark", "Light", "System"],
-            variable=self.theme_var,
-            width=105,
-            command=self._change_theme,
-        )
-        self.theme_menu.pack(side="left")
-
-        body = ctk.CTkFrame(self, corner_radius=18)
-        body.grid(row=1, column=0, sticky="nsew", padx=28, pady=(0, 20))
-        body.grid_columnconfigure(0, weight=3)
-        body.grid_columnconfigure(1, weight=2)
-        body.grid_rowconfigure(0, weight=1)
-
-        left = ctk.CTkFrame(body, fg_color="transparent")
-        left.grid(row=0, column=0, sticky="nsew", padx=(22, 12), pady=22)
+        content = ctk.CTkFrame(main, fg_color="transparent")
+        content.grid(row=2, column=0, sticky="nsew")
+        content.grid_columnconfigure(0, weight=1, uniform="panels")
+        content.grid_columnconfigure(1, weight=1, uniform="panels")
+        content.grid_rowconfigure(0, weight=1)
+        left = ctk.CTkScrollableFrame(content, fg_color=surface, corner_radius=16,
+                                     border_width=1, border_color=border)
+        left.grid(row=0, column=0, sticky="nsew", padx=(0, 9))
         left.grid_columnconfigure(0, weight=1)
-
-        right = ctk.CTkFrame(body, corner_radius=14)
-        right.grid(row=0, column=1, sticky="nsew", padx=(12, 22), pady=22)
+        right = ctk.CTkScrollableFrame(content, fg_color=surface, corner_radius=16,
+                                      border_width=1, border_color=border)
+        right.grid(row=0, column=1, sticky="nsew", padx=(9, 0))
         right.grid_columnconfigure(0, weight=1)
 
-        ctk.CTkLabel(
-            left,
-            text="YouTube URL",
-            font=ctk.CTkFont(size=14, weight="bold"),
-        ).grid(row=0, column=0, sticky="w")
+        label(left, "02  /  MAKE IT YOURS", 11, True, muted).grid(row=0, column=0, sticky="w", padx=16, pady=(16, 8))
+        label(left, "Download settings", 20, True).grid(row=1, column=0, sticky="w", padx=16, pady=(0, 18))
+        label(left, "Format", 13, True).grid(row=2, column=0, sticky="w", padx=16)
+        self.mode_selector = ctk.CTkSegmentedButton(left, values=["Video (MP4)", "Audio (MP3)"],
+                                                   variable=self.mode_var, command=self._on_mode_change,
+                                                   height=42, corner_radius=9, fg_color=inset,
+                                                   selected_color=accent, selected_hover_color=hover,
+                                                   unselected_color=inset, unselected_hover_color=border,
+                                                   text_color=ink)
+        self.mode_selector.grid(row=3, column=0, sticky="ew", padx=16, pady=(8, 18))
+        self.quality_label = label(left, "Video quality", 13, True)
+        self.quality_label.grid(row=4, column=0, sticky="w", padx=16)
+        self.quality_menu = ctk.CTkOptionMenu(left, values=self.video_quality_values,
+                                             variable=self.quality_var, height=42,
+                                             fg_color=inset, button_color=border, button_hover_color=accent,
+                                             text_color=ink, dropdown_fg_color=surface, dropdown_text_color=ink,
+                                             corner_radius=9)
+        self.quality_menu.grid(row=5, column=0, sticky="ew", padx=16, pady=(8, 18))
+        label(left, "Save location", 13, True).grid(row=6, column=0, sticky="w", padx=16)
+        self.folder_entry = ctk.CTkEntry(left, textvariable=self.output_var, height=40,
+                                        fg_color=inset, border_color=border, text_color=ink, corner_radius=9)
+        self.folder_entry.grid(row=7, column=0, sticky="ew", padx=16, pady=(8, 8))
+        folder_actions = ctk.CTkFrame(left, fg_color="transparent")
+        folder_actions.grid(row=8, column=0, sticky="ew", padx=16, pady=(0, 18))
+        folder_actions.grid_columnconfigure((0, 1), weight=1)
+        button(folder_actions, "Change folder", self.choose_folder, width=100).grid(row=0, column=0, sticky="ew", padx=(0, 4))
+        self.open_folder_btn = button(folder_actions, "Open folder", self.open_output_folder, width=90)
+        self.open_folder_btn.grid(row=0, column=1, sticky="ew", padx=(4, 0))
 
-        url_row = ctk.CTkFrame(left, fg_color="transparent")
-        url_row.grid(row=1, column=0, sticky="ew", pady=(8, 18))
-        url_row.grid_columnconfigure(0, weight=1)
-
-        self.url_entry = ctk.CTkEntry(
-            url_row,
-            textvariable=self.url_var,
-            height=42,
-            placeholder_text="https://www.youtube.com/watch?v=...",
-        )
-        self.url_entry.grid(row=0, column=0, sticky="ew")
-
-        ctk.CTkButton(
-            url_row,
-            text="Paste",
-            width=76,
-            height=42,
-            command=self._paste_url,
-        ).grid(row=0, column=1, padx=(8, 0))
-
-        self.analyze_btn = ctk.CTkButton(
-            url_row,
-            text="Analyze",
-            width=88,
-            height=42,
-            command=self.start_analyze,
-        )
-        self.analyze_btn.grid(row=0, column=2, padx=(8, 0))
-
-        ctk.CTkLabel(
-            left,
-            text="Download mode",
-            font=ctk.CTkFont(size=14, weight="bold"),
-        ).grid(row=2, column=0, sticky="w")
-
-        self.mode_selector = ctk.CTkSegmentedButton(
-            left,
-            values=["Video (MP4)", "Audio (MP3)"],
-            variable=self.mode_var,
-            command=self._on_mode_change,
-            height=38,
-        )
-        self.mode_selector.grid(row=3, column=0, sticky="ew", pady=(8, 18))
-
-        options = ctk.CTkFrame(left, fg_color="transparent")
-        options.grid(row=4, column=0, sticky="ew")
-        options.grid_columnconfigure((0, 1), weight=1)
-
-        quality_box = ctk.CTkFrame(options, fg_color="transparent")
-        quality_box.grid(row=0, column=0, sticky="ew", padx=(0, 7))
-        quality_box.grid_columnconfigure(0, weight=1)
-
-        self.quality_label = ctk.CTkLabel(
-            quality_box,
-            text="Video quality",
-            font=ctk.CTkFont(size=13, weight="bold"),
-        )
-        self.quality_label.grid(row=0, column=0, sticky="w")
-
-        self.quality_menu = ctk.CTkOptionMenu(
-            quality_box,
-            values=self.video_quality_values,
-            variable=self.quality_var,
-            height=40,
-        )
-        self.quality_menu.grid(row=1, column=0, sticky="ew", pady=(7, 0))
-
-        folder_box = ctk.CTkFrame(options, fg_color="transparent")
-        folder_box.grid(row=0, column=1, sticky="ew", padx=(7, 0))
-        folder_box.grid_columnconfigure(0, weight=1)
-
-        ctk.CTkLabel(
-            folder_box,
-            text="Save folder",
-            font=ctk.CTkFont(size=13, weight="bold"),
-        ).grid(row=0, column=0, sticky="w")
-
-        folder_row = ctk.CTkFrame(folder_box, fg_color="transparent")
-        folder_row.grid(row=1, column=0, sticky="ew", pady=(7, 0))
-        folder_row.grid_columnconfigure(0, weight=1)
-
-        self.folder_entry = ctk.CTkEntry(
-            folder_row,
-            textvariable=self.output_var,
-            height=40,
-        )
-        self.folder_entry.grid(row=0, column=0, sticky="ew")
-
-        ctk.CTkButton(
-            folder_row,
-            text="Browse",
-            width=72,
-            height=40,
-            command=self.choose_folder,
-        ).grid(row=0, column=1, padx=(7, 0))
-
-        progress_card = ctk.CTkFrame(left, corner_radius=12)
-        progress_card.grid(row=5, column=0, sticky="ew", pady=(22, 14))
-        progress_card.grid_columnconfigure(0, weight=1)
-
-        status_row = ctk.CTkFrame(progress_card, fg_color="transparent")
-        status_row.grid(row=0, column=0, sticky="ew", padx=16, pady=(14, 6))
-        status_row.grid_columnconfigure(0, weight=1)
-
-        ctk.CTkLabel(
-            status_row,
-            textvariable=self.status_var,
-            font=ctk.CTkFont(size=13, weight="bold"),
-        ).grid(row=0, column=0, sticky="w")
-
-        self.percent_label = ctk.CTkLabel(status_row, text="0%")
-        self.percent_label.grid(row=0, column=1, sticky="e")
-
-        self.progress_bar = ctk.CTkProgressBar(progress_card, height=12)
-        self.progress_bar.set(0)
-        self.progress_bar.grid(row=1, column=0, sticky="ew", padx=16, pady=(0, 8))
-
-        ctk.CTkLabel(
-            progress_card,
-            textvariable=self.detail_var,
-            text_color=("gray40", "gray70"),
-            anchor="w",
-        ).grid(row=2, column=0, sticky="ew", padx=16, pady=(0, 14))
-
-        action_row = ctk.CTkFrame(left, fg_color="transparent")
-        action_row.grid(row=6, column=0, sticky="ew")
-        action_row.grid_columnconfigure(0, weight=1)
-
-        self.download_btn = ctk.CTkButton(
-            action_row,
-            text="Download",
-            height=46,
-            font=ctk.CTkFont(size=15, weight="bold"),
-            command=self.start_download,
-        )
-        self.download_btn.grid(row=0, column=0, sticky="ew")
-
-        self.cancel_btn = ctk.CTkButton(
-            action_row,
-            text="Cancel",
-            width=90,
-            height=46,
-            fg_color=("gray75", "gray28"),
-            hover_color=("gray65", "gray35"),
-            state="disabled",
-            command=self.cancel_download,
-        )
-        self.cancel_btn.grid(row=0, column=1, padx=(8, 0))
-
-        self.open_folder_btn = ctk.CTkButton(
-            action_row,
-            text="Open Folder",
-            width=105,
-            height=46,
-            fg_color=("gray75", "gray28"),
-            hover_color=("gray65", "gray35"),
-            command=self.open_output_folder,
-        )
-        self.open_folder_btn.grid(row=0, column=2, padx=(8, 0))
-
-        ctk.CTkLabel(
-            left,
-            text="Download only media you own, that is licensed for download, or that you have permission to save.",
-            wraplength=620,
-            justify="left",
-            text_color=("gray45", "gray65"),
-            font=ctk.CTkFont(size=11),
-        ).grid(row=7, column=0, sticky="w", pady=(16, 0))
-
-        self.thumbnail_frame = ctk.CTkFrame(right, height=230, corner_radius=12)
-        self.thumbnail_frame.grid(row=0, column=0, sticky="ew", padx=14, pady=(14, 12))
+        label(right, "03  /  VIDEO PREVIEW", 11, True, muted).grid(row=0, column=0, sticky="w", padx=16, pady=(16, 12))
+        self.thumbnail_frame = ctk.CTkFrame(right, height=170, fg_color=inset, corner_radius=12)
+        self.thumbnail_frame.grid(row=1, column=0, sticky="ew", padx=16, pady=(0, 14))
         self.thumbnail_frame.grid_propagate(False)
         self.thumbnail_frame.grid_columnconfigure(0, weight=1)
         self.thumbnail_frame.grid_rowconfigure(0, weight=1)
-
-        self.thumbnail_label = ctk.CTkLabel(
-            self.thumbnail_frame,
-            text="Video preview\nwill appear here",
-            font=ctk.CTkFont(size=16, weight="bold"),
-            text_color=("gray50", "gray60"),
-        )
+        self.thumbnail_label = label(self.thumbnail_frame, "▶\nYour video, right here.\nAnalyze a link to see the details.", 14, color=muted)
         self.thumbnail_label.grid(row=0, column=0, sticky="nsew")
+        self.title_label = label(right, "Ready when you are", 19, True, wraplength=290, justify="left", anchor="w")
+        self.title_label.grid(row=2, column=0, sticky="ew", padx=16, pady=(0, 10))
+        for row, name, text in [(3, "channel_label", "Channel: —"), (4, "duration_label", "Duration: —"),
+                                (5, "views_label", "Views: —"), (6, "resolution_label", "Available quality: —")]:
+            widget = label(right, text, 12, color=muted, anchor="w", wraplength=290, justify="left")
+            widget.grid(row=row, column=0, sticky="ew", padx=16, pady=(0, 6 if row < 6 else 18))
+            setattr(self, name, widget)
 
-        self.title_label = ctk.CTkLabel(
-            right,
-            text="No video analyzed",
-            wraplength=330,
-            justify="left",
-            anchor="w",
-            font=ctk.CTkFont(size=17, weight="bold"),
-        )
-        self.title_label.grid(row=1, column=0, sticky="ew", padx=16, pady=(4, 8))
-
-        self.channel_label = ctk.CTkLabel(
-            right,
-            text="Channel: —",
-            anchor="w",
-            text_color=("gray40", "gray70"),
-        )
-        self.channel_label.grid(row=2, column=0, sticky="ew", padx=16, pady=3)
-
-        self.duration_label = ctk.CTkLabel(
-            right,
-            text="Duration: —",
-            anchor="w",
-            text_color=("gray40", "gray70"),
-        )
-        self.duration_label.grid(row=3, column=0, sticky="ew", padx=16, pady=3)
-
-        self.views_label = ctk.CTkLabel(
-            right,
-            text="Views: —",
-            anchor="w",
-            text_color=("gray40", "gray70"),
-        )
-        self.views_label.grid(row=4, column=0, sticky="ew", padx=16, pady=3)
-
-        self.resolution_label = ctk.CTkLabel(
-            right,
-            text="Available quality: —",
-            anchor="w",
-            wraplength=330,
-            justify="left",
-            text_color=("gray40", "gray70"),
-        )
-        self.resolution_label.grid(row=5, column=0, sticky="ew", padx=16, pady=(3, 16))
-
+        transfer = ctk.CTkFrame(main, fg_color=surface, corner_radius=16, border_width=1, border_color=border)
+        transfer.grid(row=3, column=0, sticky="ew", pady=(18, 0))
+        transfer.grid_columnconfigure(0, weight=1)
+        status_row = ctk.CTkFrame(transfer, fg_color="transparent")
+        status_row.grid(row=0, column=0, sticky="ew", padx=20, pady=(16, 5))
+        status_row.grid_columnconfigure(0, weight=1)
+        ctk.CTkLabel(status_row, textvariable=self.status_var, text_color=ink,
+                     font=ctk.CTkFont(family="Segoe UI", size=14, weight="bold")).grid(row=0, column=0, sticky="w")
+        self.percent_label = label(status_row, "0%", 14, True, accent)
+        self.percent_label.grid(row=0, column=1)
+        self.progress_bar = ctk.CTkProgressBar(transfer, height=6, fg_color=inset, progress_color=accent, corner_radius=3)
+        self.progress_bar.set(0)
+        self.progress_bar.grid(row=1, column=0, sticky="ew", padx=20, pady=6)
+        ctk.CTkLabel(transfer, textvariable=self.detail_var, anchor="w", text_color=muted,
+                     wraplength=370, justify="left", font=ctk.CTkFont(size=11)).grid(row=2, column=0, sticky="ew", padx=20, pady=(0, 16))
+        actions = ctk.CTkFrame(transfer, fg_color="transparent")
+        actions.grid(row=0, column=1, rowspan=3, padx=(0, 20), pady=16)
+        self.cancel_btn = button(actions, "Cancel", self.cancel_download, width=70, state="disabled")
+        self.cancel_btn.pack(side="left", padx=(0, 8))
+        self.download_btn = button(actions, "Start download", self.start_download, primary=True, width=148)
+        self.download_btn.pack(side="left")
+        label(main, "Download only media you own or have permission to save.", 10, color=muted).grid(row=4, column=0, sticky="w", pady=(10, 0))
         self.url_entry.focus()
 
     def _change_theme(self, value):
@@ -562,7 +427,7 @@ class YouTubeDownloaderApp(ctk.CTk):
         if thumbnail_bytes:
             try:
                 image = Image.open(io.BytesIO(thumbnail_bytes)).convert("RGB")
-                image.thumbnail((360, 210))
+                image.thumbnail((300, 169))
                 self.thumbnail_image = ctk.CTkImage(
                     light_image=image,
                     dark_image=image,
