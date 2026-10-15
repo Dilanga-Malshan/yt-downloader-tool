@@ -1,6 +1,27 @@
-# YT Downloader Pro
+<p align="center">
+  <img src="assets/app-icon.png" alt="YT Downloader Pro icon" width="110">
+</p>
 
-![App icon](assets/app-icon.png)
+<h1 align="center">YT Downloader Pro</h1>
+
+<p align="center">Download and install the Windows desktop app — no Python setup needed.</p>
+
+<p align="center">
+  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38677210521/artifacts/11946810185">
+    <img src="https://img.shields.io/badge/DOWNLOAD_%26_INSTALL-FOR_WINDOWS_10%2F11-EF233C?style=for-the-badge&amp;logo=windows&amp;logoColor=white" alt="Download and install for Windows 10/11" height="44">
+  </a>
+</p>
+
+<p align="center">
+  <strong>Version 1.0.1 · Windows x64 · Python, FFmpeg and Deno included</strong><br>
+  GitHub sign-in required to download the ZIP. Extract it and run <code>YT-Downloader-Pro-Setup.exe</code>.<br>
+  <a href="#install-on-windows-no-python-required">Installation instructions</a> ·
+  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/workflows/windows-installer.yml">All installer builds</a>
+</p>
+
+> **Ready to share:** Send the extracted **Setup.exe** to anyone using Windows 10/11 x64. They do not need a GitHub account to install it. This download expires on January 13, 2027; newer builds are available under **All installer builds**.
+
+---
 
 A modern Windows desktop GUI for downloading YouTube videos that you own or have permission to save.
 
