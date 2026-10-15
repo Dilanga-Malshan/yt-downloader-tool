@@ -20,6 +20,10 @@ try:
             app.mode_var.set("Video (MP4)")
             app._on_mode_change("Video (MP4)")
             assert app.quality_var.get() == "1080p"
+            app.download_btn._on_enter()
+            app.download_btn._on_leave()
+            assert app.download_btn._canvas.find_withtag("aurora_gradient")
+            assert app.download_btn._canvas.find_withtag("aurora_text")
             app._set_busy(True, cancellable=True)
             assert app.cancel_btn.cget("state") == "normal"
             app._set_busy(False)
