@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38680846841/artifacts/11948111280">
-    <img src="assets/download-install-button.svg" alt="DOWNLOAD &amp; INSTALL — Windows 10/11" width="420">
+    <img src="assets/aurora-download-v2.svg" alt="DOWNLOAD &amp; INSTALL — Windows 10/11" width="360" height="74">
   </a>
 </p>
 
@@ -93,6 +93,12 @@ python youtube_downloader.py
 ```
 
 ## Install on Windows (no Python required)
+
+<p align="center">
+  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38680846841/artifacts/11948111280">
+    <img src="assets/aurora-download-v2.svg" alt="Download Aurora Glass for Windows" width="360" height="74">
+  </a>
+</p>
 
 1. Open [Windows installer builds](https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/workflows/windows-installer.yml).
 2. Open the latest successful run and download **YT-Downloader-Pro-Windows-Installer** under Artifacts (GitHub sign-in required).
