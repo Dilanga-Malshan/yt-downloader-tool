@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="124" viewBox="0 0 600 124" role="img" aria-label="Download and install for Windows 10 and 11">
+<rect x="4" y="10" width="592" height="110" rx="22" fill="#940d23"/>
+<rect x="4" y="2" width="592" height="110" rx="22" fill="#ef233c" stroke="#ff6678" stroke-width="2"/>
+<rect x="24" y="22" width="68" height="68" rx="16" fill="#ba122c"/>
+<path d="M58 36v29m-12-12 12 12 12-12M40 72v7h36v-7" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="120" y="53" fill="white" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700">DOWNLOAD &amp; INSTALL</text>
+<text x="121" y="82" fill="#fff1f3" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="500">Windows 10 / 11 · 64-bit · Setup.exe</text>
+<path d="m552 47 12 12-12 12" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

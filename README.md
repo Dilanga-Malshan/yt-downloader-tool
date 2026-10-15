@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38677210521/artifacts/11946810185">
-    <img src="https://img.shields.io/badge/DOWNLOAD_%26_INSTALL-FOR_WINDOWS_10%2F11-EF233C?style=for-the-badge&amp;logo=windows&amp;logoColor=white" alt="Download and install for Windows 10/11" height="44">
+    <img src="assets/download-install-button.svg" alt="DOWNLOAD &amp; INSTALL — Windows 10/11" width="520">
   </a>
 </p>
 
