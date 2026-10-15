@@ -1,14 +1,10 @@
 <p align="center">
-  <img src="assets/aurora-icon.png" alt="YT Downloader Pro icon" width="110">
+  <img src="assets/aurora-readme-header.svg" alt="YT Downloader Pro — Aurora Glass desktop app" width="100%">
 </p>
-
-<h1 align="center">YT Downloader Pro</h1>
-
-<p align="center">Download and install the Windows desktop app — no Python setup needed.</p>
 
 <p align="center">
   <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38680846841/artifacts/11948111280">
-    <img src="assets/download-install-button.svg" alt="DOWNLOAD &amp; INSTALL — Windows 10/11" width="520">
+    <img src="assets/download-install-button.svg" alt="DOWNLOAD &amp; INSTALL — Windows 10/11" width="560">
   </a>
 </p>
 
@@ -27,11 +23,14 @@ A modern Windows desktop GUI for downloading YouTube videos that you own or have
 
 ## Highlights
 
+<p align="center">
+  <img src="assets/aurora-features.svg" alt="MP4 video up to 4K, MP3 audio and bundled tools" width="100%">
+</p>
+
 - Modern studio layout with a sidebar, dedicated link bar, settings and video preview
 - Aurora Glass styling: purple-to-cyan gradient buttons, frosted-style panels and matching app icon
 - Readable typography, soft borders and Dark / Light / System themes
 - Scrollable panels and persistent download controls on smaller windows
-- Dark / Light / System theme selector
 - Paste + Analyze workflow
 - Video thumbnail preview
 - Video title, channel, duration and view count

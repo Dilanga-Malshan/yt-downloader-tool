@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="150" viewBox="0 0 1200 150" role="img" aria-label="MP4 video up to 4K when available, MP3 audio with selectable bitrate, bundled tools with no extra setup">
+<defs><linearGradient id="s"><stop stop-color="#2c2546"/><stop offset="1" stop-color="#153449"/></linearGradient></defs>
+<rect x="1" y="1" width="1198" height="148" rx="22" fill="url(#s)" stroke="#8e9cbe" stroke-opacity=".45"/>
+<g font-family="Segoe UI,Arial,sans-serif"><text x="38" y="48" font-size="12" fill="#c7aff0" letter-spacing="2">WATCH YOUR WAY</text><text x="38" y="83" font-size="24" fill="#f6f4ff" font-weight="600">MP4 video · Up to 4K</text><text x="38" y="114" font-size="15" fill="#c4c9df">Choose from the qualities available.</text>
+<text x="440" y="48" font-size="12" fill="#c7aff0" letter-spacing="2">JUST THE SOUND</text><text x="440" y="83" font-size="24" fill="#f6f4ff" font-weight="600">MP3 audio</text><text x="440" y="114" font-size="15" fill="#c4c9df">Pick the bitrate that suits you.</text>
+<text x="825" y="48" font-size="12" fill="#88d6e3" letter-spacing="2">READY TO GO</text><text x="825" y="83" font-size="24" fill="#f6f4ff" font-weight="600">One easy installer</text><text x="825" y="114" font-size="15" fill="#c4c9df">Python, FFmpeg and Deno included.</text></g>
+<path d="M410 35v80M795 35v80" stroke="#c0ceee" stroke-opacity=".18"/>
+</svg>
