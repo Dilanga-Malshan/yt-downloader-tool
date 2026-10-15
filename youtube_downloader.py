@@ -1,6 +1,7 @@
 import io
 import os
 import shutil
+import sys
 import threading
 import tkinter as tk
 from pathlib import Path
@@ -11,6 +12,12 @@ from urllib.request import Request, urlopen
 import customtkinter as ctk
 import yt_dlp
 from PIL import Image
+
+
+# PyInstaller stores bundled binaries in _MEIPASS (the _internal folder).
+if getattr(sys, "frozen", False):
+    bundle_dir = str(Path(sys._MEIPASS))
+    os.environ["PATH"] = bundle_dir + os.pathsep + os.environ.get("PATH", "")
 
 
 APP_TITLE = "YT Downloader Pro"

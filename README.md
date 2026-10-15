@@ -65,26 +65,31 @@ python -m pip install -r requirements.txt
 python youtube_downloader.py
 ```
 
-## Build a Windows EXE
+## Install on Windows (no Python required)
 
-```powershell
-pyinstaller --noconsole --onefile --name "YT-Downloader-Pro" youtube_downloader.py
-```
+1. Open [Windows installer builds](https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/workflows/windows-installer.yml).
+2. Open the latest successful run and download **YT-Downloader-Pro-Windows-Installer** under Artifacts (GitHub sign-in required).
+3. Extract the ZIP and run **YT-Downloader-Pro-Setup.exe**.
+4. Follow the installer and launch from the Start menu or optional desktop shortcut.
 
-The executable will be created in:
+Share the Setup.exe with other Windows 10/11 x64 users. They do not need Python, FFmpeg, Deno or a GitHub account to install the shared file. Internet is needed for downloading videos. Uninstall through Windows Settings > Apps. Downloads are saved in the chosen output folder and are not removed on uninstall.
 
-```text
-dist\YT-Downloader-Pro.exe
-```
+The installer bundles Python, CustomTkinter, yt-dlp, FFmpeg/FFprobe and Deno (for YouTube JavaScript challenges). It installs for the current user without administrator rights. The installer is unsigned, so Windows may display an unknown publisher/SmartScreen message. Check the source and SHA256.txt before distributing.
 
-FFmpeg still needs to be available on the target computer's PATH for MP3 conversion and high-quality video/audio merging unless you bundle it separately.
+## Build the installer
+
+GitHub Actions builds the app on Windows on every push to main. You can also select **Run workflow** on the Windows installer workflow. The workflow launches the packaged app as a startup smoke test before compiling the Inno Setup installer. A successful startup does not verify downloading every YouTube video.
+
+For local Windows builds, follow the commands in `.github/workflows/windows-installer.yml` with Python 3.12 and Inno Setup 6 installed. Bundled tool licenses are included beside the binaries in the installed `_internal` directory. FFmpeg build information and corresponding source are available from https://www.gyan.dev/ffmpeg/builds/.
 
 ## Update yt-dlp
+
+For installed copies, rebuild and install a new Setup.exe to update the bundled downloader. The command below is for source installations only.
 
 YouTube changes regularly. If extraction stops working, update yt-dlp:
 
 ```powershell
-python -m pip install -U yt-dlp
+python -m pip install -U "yt-dlp[default]"
 ```
 
 ## Usage note
