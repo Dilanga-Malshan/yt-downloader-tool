@@ -30,7 +30,7 @@ jobs:
           Expand-Archive deno.zip -DestinationPath vendor
           Invoke-WebRequest 'https://raw.githubusercontent.com/denoland/deno/main/LICENSE.md' -OutFile vendor/Deno-LICENSE.txt
       - name: Build desktop app
-        run: python -m PyInstaller --noconfirm --clean --onedir --windowed --name YT-Downloader-Pro --collect-all customtkinter --collect-all yt_dlp --collect-all yt_dlp_ejs --add-binary "vendor/ffmpeg.exe;." --add-binary "vendor/ffprobe.exe;." --add-binary "vendor/deno.exe;." --add-data "vendor/FFmpeg-LICENSE.txt;." --add-data "vendor/Deno-LICENSE.txt;." youtube_downloader.py
+        run: python -m PyInstaller --noconfirm --clean --onedir --windowed --name YT-Downloader-Pro --icon assets/app-icon.ico --add-data "assets;assets" --collect-all customtkinter --collect-all yt_dlp --collect-all yt_dlp_ejs --add-binary "vendor/ffmpeg.exe;." --add-binary "vendor/ffprobe.exe;." --add-binary "vendor/deno.exe;." --add-data "vendor/FFmpeg-LICENSE.txt;." --add-data "vendor/Deno-LICENSE.txt;." youtube_downloader.py
       - name: Smoke test bundled app
         shell: pwsh
         run: |

@@ -1,5 +1,7 @@
 # YT Downloader Pro
 
+![App icon](assets/app-icon.png)
+
 A modern Windows desktop GUI for downloading YouTube videos that you own or have permission to save.
 
 ## Highlights

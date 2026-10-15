@@ -20,6 +20,9 @@ if getattr(sys, "frozen", False):
     os.environ["PATH"] = bundle_dir + os.pathsep + os.environ.get("PATH", "")
 
 
+RESOURCE_DIR = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent))
+APP_ICON = RESOURCE_DIR / "assets" / "app-icon.ico"
+
 APP_TITLE = "YT Downloader Pro"
 APP_SIZE = "1040x760"
 DEFAULT_DIR = str(Path.home() / "Downloads")
@@ -77,6 +80,9 @@ class YouTubeDownloaderApp(ctk.CTk):
         super().__init__()
 
         self.title(APP_TITLE)
+        if sys.platform == "win32":
+            # CustomTkinter schedules its default icon after startup.
+            self.after(250, lambda: self.iconbitmap(str(APP_ICON)))
         self.geometry(APP_SIZE)
         self.minsize(920, 680)
 
@@ -767,5 +773,11 @@ class YouTubeDownloaderApp(ctk.CTk):
 
 
 if __name__ == "__main__":
+    if sys.platform == "win32":
+        import ctypes
+
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
+            "DilangaMalshan.YTDownloaderPro"
+        )
     app = YouTubeDownloaderApp()
     app.mainloop()
