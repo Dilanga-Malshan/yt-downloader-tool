@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38680846841/artifacts/11948111280">
+  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38681883487/artifacts/11948557766">
     <img src="assets/download-button.svg" alt="DOWNLOAD &amp; INSTALL — Windows 10/11" width="360" height="74">
   </a>
 </p>
@@ -95,7 +95,7 @@ python youtube_downloader.py
 ## Install on Windows (no Python required)
 
 <p align="center">
-  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38680846841/artifacts/11948111280">
+  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38681883487/artifacts/11948557766">
     <img src="assets/download-button.svg" alt="Download YT Downloader Pro for Windows" width="360" height="74">
   </a>
 </p>
