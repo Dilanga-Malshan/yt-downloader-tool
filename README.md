@@ -7,13 +7,13 @@
 <p align="center">Download and install the Windows desktop app — no Python setup needed.</p>
 
 <p align="center">
-  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38677210521/artifacts/11946810185">
+  <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38678686418/artifacts/11947772123">
     <img src="assets/download-install-button.svg" alt="DOWNLOAD &amp; INSTALL — Windows 10/11" width="520">
   </a>
 </p>
 
 <p align="center">
-  <strong>Version 1.0.1 · Windows x64 · Python, FFmpeg and Deno included</strong><br>
+  <strong>Version 1.1.0 · Windows x64 · Python, FFmpeg and Deno included</strong><br>
   GitHub sign-in required to download the ZIP. Extract it and run <code>YT-Downloader-Pro-Setup.exe</code>.<br>
   <a href="#install-on-windows-no-python-required">Installation instructions</a> ·
   <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/workflows/windows-installer.yml">All installer builds</a>
@@ -27,7 +27,9 @@ A modern Windows desktop GUI for downloading YouTube videos that you own or have
 
 ## Highlights
 
-- Modern CustomTkinter interface
+- Modern studio layout with a sidebar, dedicated link bar, settings and video preview
+- Red accent buttons, readable typography and theme-aware cards
+- Scrollable panels and persistent download controls on smaller windows
 - Dark / Light / System theme selector
 - Paste + Analyze workflow
 - Video thumbnail preview
