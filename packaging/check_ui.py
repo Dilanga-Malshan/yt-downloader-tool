@@ -28,7 +28,10 @@ try:
             assert app.cancel_btn.cget("state") == "normal"
             app._set_busy(False)
             app.update()
-            for widget in (app.download_btn, app.cancel_btn, app.analyze_btn, app.url_entry):
+            for widget in (app.download_btn, app.cancel_btn, app.analyze_btn, app.url_entry,
+                           app.mode_selector, app.quality_menu, app.folder_entry,
+                           app.choose_folder_btn, app.open_folder_btn,
+                           app.thumbnail_frame, app.title_label, app.resolution_label):
                 assert widget.winfo_ismapped()
                 assert widget.winfo_rootx() >= app.winfo_rootx()
                 assert widget.winfo_rootx() + widget.winfo_width() <= app.winfo_rootx() + app.winfo_width(), str(widget)

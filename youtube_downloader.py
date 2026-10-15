@@ -186,58 +186,61 @@ class YouTubeDownloaderApp(ctk.CTk):
         content.grid_columnconfigure(0, weight=1, uniform="panels")
         content.grid_columnconfigure(1, weight=1, uniform="panels")
         content.grid_rowconfigure(0, weight=1)
-        left = ctk.CTkScrollableFrame(content, fg_color=surface, corner_radius=16,
+        left = ctk.CTkFrame(content, fg_color=surface, corner_radius=16,
                                      border_width=1, border_color=border)
         left.grid(row=0, column=0, sticky="nsew", padx=(0, 9))
         left.grid_columnconfigure(0, weight=1)
-        right = ctk.CTkScrollableFrame(content, fg_color=("#f2f8fe", "#1f3449"), corner_radius=16,
+        right = ctk.CTkFrame(content, fg_color=("#f2f8fe", "#1f3449"), corner_radius=16,
                                       border_width=1, border_color=border)
         right.grid(row=0, column=1, sticky="nsew", padx=(9, 0))
         right.grid_columnconfigure(0, weight=1)
 
-        label(left, "YOUR DOWNLOAD, YOUR WAY", 11, True, muted).grid(row=0, column=0, sticky="w", padx=16, pady=(16, 8))
-        label(left, "Download settings", 20, True).grid(row=1, column=0, sticky="w", padx=16, pady=(0, 18))
-        label(left, "Format", 13, True).grid(row=2, column=0, sticky="w", padx=16)
+        label(left, "Download settings", 18, True).grid(row=0, column=0, sticky="w", padx=16, pady=(12, 8))
         self.mode_selector = ctk.CTkSegmentedButton(left, values=["Video (MP4)", "Audio (MP3)"],
                                                    variable=self.mode_var, command=self._on_mode_change,
-                                                   height=42, corner_radius=9, fg_color=inset,
+                                                   height=36, corner_radius=9, fg_color=inset,
                                                    selected_color=accent, selected_hover_color=hover,
                                                    unselected_color=inset, unselected_hover_color=border,
                                                    text_color=ink)
-        self.mode_selector.grid(row=3, column=0, sticky="ew", padx=16, pady=(8, 18))
-        self.quality_label = label(left, "Video quality", 13, True)
-        self.quality_label.grid(row=4, column=0, sticky="w", padx=16)
-        self.quality_menu = ctk.CTkOptionMenu(left, values=self.video_quality_values,
-                                             variable=self.quality_var, height=42,
+        self.mode_selector.grid(row=1, column=0, sticky="ew", padx=16, pady=(0, 3))
+        settings_row = ctk.CTkFrame(left, fg_color="transparent")
+        settings_row.grid(row=2, column=0, sticky="ew", padx=16)
+        settings_row.grid_columnconfigure(0, weight=1)
+        settings_row.grid_columnconfigure(1, weight=2)
+        self.quality_label = label(settings_row, "Video quality", 12, True)
+        self.quality_label.grid(row=0, column=0, sticky="w")
+        label(settings_row, "Save location", 12, True).grid(row=0, column=1, sticky="w", padx=(10, 0))
+        self.quality_menu = ctk.CTkOptionMenu(settings_row, values=self.video_quality_values,
+                                             variable=self.quality_var, height=36, width=120,
                                              fg_color=inset, button_color=border, button_hover_color=accent,
                                              text_color=ink, dropdown_fg_color=surface, dropdown_text_color=ink,
                                              corner_radius=9)
-        self.quality_menu.grid(row=5, column=0, sticky="ew", padx=16, pady=(8, 18))
-        label(left, "Save location", 13, True).grid(row=6, column=0, sticky="w", padx=16)
-        self.folder_entry = ctk.CTkEntry(left, textvariable=self.output_var, height=40,
+        self.quality_menu.grid(row=1, column=0, sticky="ew", pady=(5, 0))
+        self.folder_entry = ctk.CTkEntry(settings_row, textvariable=self.output_var, height=36,
                                         fg_color=inset, border_color=border, text_color=ink, corner_radius=9)
-        self.folder_entry.grid(row=7, column=0, sticky="ew", padx=16, pady=(8, 8))
+        self.folder_entry.grid(row=1, column=1, sticky="ew", padx=(10, 0), pady=(5, 0))
         folder_actions = ctk.CTkFrame(left, fg_color="transparent")
-        folder_actions.grid(row=8, column=0, sticky="ew", padx=16, pady=(0, 18))
+        folder_actions.grid(row=3, column=0, sticky="ew", padx=16, pady=(10, 12))
         folder_actions.grid_columnconfigure((0, 1), weight=1)
-        button(folder_actions, "Change folder", self.choose_folder, width=100).grid(row=0, column=0, sticky="ew", padx=(0, 4))
+        self.choose_folder_btn = button(folder_actions, "Change folder", self.choose_folder, width=100)
+        self.choose_folder_btn.grid(row=0, column=0, sticky="ew", padx=(0, 4))
         self.open_folder_btn = button(folder_actions, "Open folder", self.open_output_folder, width=90)
         self.open_folder_btn.grid(row=0, column=1, sticky="ew", padx=(4, 0))
 
-        label(right, "VIDEO PREVIEW", 11, True, muted).grid(row=0, column=0, sticky="w", padx=16, pady=(16, 12))
-        self.thumbnail_frame = ctk.CTkFrame(right, height=170, fg_color=inset, corner_radius=12)
-        self.thumbnail_frame.grid(row=1, column=0, sticky="ew", padx=16, pady=(0, 14))
+        label(right, "VIDEO PREVIEW", 11, True, muted).grid(row=0, column=0, sticky="w", padx=16, pady=(8, 4))
+        self.thumbnail_frame = ctk.CTkFrame(right, height=100, fg_color=inset, corner_radius=12)
+        self.thumbnail_frame.grid(row=1, column=0, sticky="ew", padx=16, pady=(0, 4))
         self.thumbnail_frame.grid_propagate(False)
         self.thumbnail_frame.grid_columnconfigure(0, weight=1)
         self.thumbnail_frame.grid_rowconfigure(0, weight=1)
         self.thumbnail_label = label(self.thumbnail_frame, "▶\nYour video, right here.\nAnalyze a link to see the details.", 14, color=muted)
         self.thumbnail_label.grid(row=0, column=0, sticky="nsew")
-        self.title_label = label(right, "Ready when you are", 19, True, wraplength=290, justify="left", anchor="w")
-        self.title_label.grid(row=2, column=0, sticky="ew", padx=16, pady=(0, 10))
+        self.title_label = label(right, "Ready when you are", 16, True, wraplength=290, justify="left", anchor="w")
+        self.title_label.grid(row=2, column=0, sticky="ew", padx=16, pady=(0, 3))
         for row, name, text in [(3, "channel_label", "Channel: —"), (4, "duration_label", "Duration: —"),
                                 (5, "views_label", "Views: —"), (6, "resolution_label", "Available quality: —")]:
             widget = label(right, text, 12, color=muted, anchor="w", wraplength=290, justify="left")
-            widget.grid(row=row, column=0, sticky="ew", padx=16, pady=(0, 6 if row < 6 else 18))
+            widget.grid(row=row, column=0, sticky="ew", padx=16, pady=(0, 0 if row < 6 else 8))
             setattr(self, name, widget)
 
         transfer = ctk.CTkFrame(main, fg_color=("#eeeafc", "#302c4b"), corner_radius=20, border_width=1, border_color=border)
@@ -418,10 +421,10 @@ class YouTubeDownloaderApp(ctk.CTk):
         duration = format_duration(info.get("duration"))
         views = compact_number(info.get("view_count"))
 
-        quality_text = ", ".join(quality_values[1:]) or "Best available"
+        quality_text = ", ".join(quality_values[1:4]) or "Best available"
 
-        self.title_label.configure(text=title)
-        self.channel_label.configure(text=f"Channel: {uploader}")
+        self.title_label.configure(text=title if len(title) <= 68 else title[:65] + "…")
+        self.channel_label.configure(text=f"Channel: {uploader[:35]}")
         self.duration_label.configure(text=f"Duration: {duration}")
         self.views_label.configure(text=f"Views: {views}")
         self.resolution_label.configure(text=f"Available quality: {quality_text}")
@@ -429,7 +432,7 @@ class YouTubeDownloaderApp(ctk.CTk):
         if thumbnail_bytes:
             try:
                 image = Image.open(io.BytesIO(thumbnail_bytes)).convert("RGB")
-                image.thumbnail((300, 169))
+                image.thumbnail((280, 100))
                 self.thumbnail_image = ctk.CTkImage(
                     light_image=image,
                     dark_image=image,

@@ -8,29 +8,32 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install Python dependencies
-        run: python -m pip install -r requirements.txt "yt-dlp[default]"
-      - name: Check UI controls and layout
-        run: python packaging/check_ui.py
-      - name: Download bundled tools
         shell: pwsh
         run: |
-          $ErrorActionPreference = 'Stop'
-          New-Item -ItemType Directory -Force vendor | Out-Null
-          Invoke-WebRequest 'https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip' -OutFile ffmpeg.zip
-          Expand-Archive ffmpeg.zip -DestinationPath ffmpeg-extracted
-          $ffmpeg = Get-ChildItem ffmpeg-extracted -Directory | Select-Object -First 1
-          Copy-Item "$($ffmpeg.FullName)/bin/ffmpeg.exe" vendor/
-          Copy-Item "$($ffmpeg.FullName)/bin/ffprobe.exe" vendor/
-          Copy-Item "$($ffmpeg.FullName)/LICENSE" vendor/FFmpeg-LICENSE.txt
-          Invoke-WebRequest 'https://github.com/denoland/deno/releases/latest/download/deno-x86_64-pc-windows-msvc.zip' -OutFile deno.zip
-          Expand-Archive deno.zip -DestinationPath vendor
-          Invoke-WebRequest 'https://raw.githubusercontent.com/denoland/deno/main/LICENSE.md' -OutFile vendor/Deno-LICENSE.txt
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade -r requirements.txt
+          if ($LASTEXITCODE -ne 0) { throw 'Dependency installation failed' }
+          New-Item -ItemType Directory -Force security | Out-Null
+          python -m pip freeze | Out-File security/build-dependencies.txt -Encoding utf8
+      - name: Audit Python dependencies
+        shell: pwsh
+        run: |
+          python -m pip install pip-audit
+          if ($LASTEXITCODE -ne 0) { throw 'Audit tool installation failed' }
+          python -m pip_audit --strict --progress-spinner off --format json --output security/dependency-audit.json
+          if ($LASTEXITCODE -ne 0) { throw 'Dependency audit failed; installer will not be published' }
+      - name: Check UI controls and layout
+        run: python packaging/check_ui.py
+      - name: Download and verify bundled tools
+        shell: pwsh
+        run: ./packaging/download_tools.ps1
       - name: Build desktop app
         run: python -m PyInstaller --noconfirm --clean --onedir --windowed --name YT-Downloader-Pro --icon assets/product-icon.ico --add-data "assets;assets" --collect-all customtkinter --collect-all yt_dlp --collect-all yt_dlp_ejs --add-binary "vendor/ffmpeg.exe;." --add-binary "vendor/ffprobe.exe;." --add-binary "vendor/deno.exe;." --add-data "vendor/FFmpeg-LICENSE.txt;." --add-data "vendor/Deno-LICENSE.txt;." youtube_downloader.py
       - name: Smoke test bundled app
@@ -50,9 +53,24 @@ jobs:
           & "${env:ProgramFiles(x86)}/Inno Setup 6/ISCC.exe" packaging/installer.iss
           if ($LASTEXITCODE -ne 0) { throw 'Installer compilation failed' }
           Get-FileHash installer/YT-Downloader-Pro-Setup.exe -Algorithm SHA256 | Format-List | Out-File installer/SHA256.txt
-      - uses: actions/upload-artifact@v4
+      - name: Scan app and installer for malware
+        shell: pwsh
+        run: ./packaging/scan_release.ps1
+      - name: Include security reports
+        shell: pwsh
+        run: Copy-Item security installer/security -Recurse
+      - name: Publish installer after security gates
+        uses: actions/upload-artifact@v4
         with:
           name: YT-Downloader-Pro-Windows-Installer
           path: installer/*
           if-no-files-found: error
+          retention-days: 90
+      - name: Publish diagnostic security reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports
+          path: security/
+          if-no-files-found: ignore
           retention-days: 90

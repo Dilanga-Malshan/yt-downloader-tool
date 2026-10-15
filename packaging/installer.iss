@@ -1,7 +1,7 @@
 [Setup]
 AppId={{68D846C2-27E6-41BD-8128-EF323434BD39}
 AppName=YT Downloader Pro
-AppVersion=1.2.1
+AppVersion=1.3.0
 AppPublisher=Dilanga Malshan
 DefaultDirName={localappdata}\Programs\YT Downloader Pro
 DefaultGroupName=YT Downloader Pro
