@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="370" viewBox="0 0 1200 370" role="img" aria-labelledby="title desc">
-<title id="title">YT Downloader Pro — Aurora Glass</title><desc id="desc">Purple and cyan glass inspired Windows desktop downloader. Video and audio saved locally.</desc>
+<title id="title">YT Downloader Pro</title><desc id="desc">Purple and cyan glass inspired Windows desktop downloader. Video and audio saved locally.</desc>
 <defs>
 <linearGradient id="base" x2="1" y2="1"><stop stop-color="#27203f"/><stop offset=".5" stop-color="#0c1229"/><stop offset="1" stop-color="#113345"/></linearGradient>
 <linearGradient id="accent"><stop stop-color="#a76ce7"/><stop offset="1" stop-color="#29c2dc"/></linearGradient>
@@ -13,12 +13,12 @@
 <rect x="74" y="77" width="61" height="61" rx="18" fill="url(#accent)" stroke="#ffffff" stroke-opacity=".35"/>
 <path d="M104 91v25m-10-10 10 10 10-10M90 121v5h28v-5" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 <g font-family="Segoe UI,Arial,sans-serif">
-<text x="155" y="101" font-size="15" letter-spacing="3" fill="#d5d0ef">AURORA GLASS</text><text x="155" y="127" font-size="14" fill="#b6c9dd">WINDOWS DESKTOP APP</text>
+<text x="155" y="101" font-size="15" letter-spacing="3" fill="#d5d0ef">VIDEO &amp; AUDIO</text><text x="155" y="127" font-size="14" fill="#b6c9dd">WINDOWS DESKTOP APP</text>
 <text x="74" y="202" font-size="54" font-weight="700" letter-spacing="-2" fill="#f8f7ff">YT Downloader Pro</text>
 <text x="77" y="240" font-size="22" fill="#cfcee2">Keep the good stuff. Beautiful quality. Effortlessly saved.</text>
 <rect x="77" y="269" width="164" height="32" rx="16" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/><text x="159" y="291" text-anchor="middle" font-size="13" fill="#e4e1f4">WINDOWS 10 / 11</text>
 <rect x="254" y="269" width="151" height="32" rx="16" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/><text x="329" y="291" text-anchor="middle" font-size="13" fill="#e4e1f4">NO PYTHON SETUP</text>
-<rect x="418" y="269" width="112" height="32" rx="16" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/><text x="474" y="291" text-anchor="middle" font-size="13" fill="#e4e1f4">v1.2.0</text>
+<rect x="418" y="269" width="112" height="32" rx="16" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/><text x="474" y="291" text-anchor="middle" font-size="13" fill="#e4e1f4">v1.2.1</text>
 </g>
 <g transform="translate(965 156)"><circle r="85" fill="url(#glass)" stroke="#ffffff" stroke-opacity=".2"/><circle r="65" fill="url(#accent)" opacity=".16"/><path d="M0-37v50m-21-21 21 21 21-21M-32 28v14h64V28" fill="none" stroke="#e7e6ff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g>
 </g><rect x="1" y="1" width="1198" height="368" rx="28" fill="none" stroke="#c9d8fb" stroke-opacity=".35"/>

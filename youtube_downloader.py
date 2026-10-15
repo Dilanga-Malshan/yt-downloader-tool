@@ -12,7 +12,7 @@ from urllib.request import Request, urlopen
 import customtkinter as ctk
 import yt_dlp
 from PIL import Image
-from glass_widgets import AuroraButton
+from ui_widgets import GradientButton
 
 
 # PyInstaller stores bundled binaries in _MEIPASS (the _internal folder).
@@ -22,7 +22,7 @@ if getattr(sys, "frozen", False):
 
 
 RESOURCE_DIR = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent))
-APP_ICON = RESOURCE_DIR / "assets" / "aurora-icon.ico"
+APP_ICON = RESOURCE_DIR / "assets" / "product-icon.ico"
 
 APP_TITLE = "YT Downloader Pro"
 APP_SIZE = "1180x850"
@@ -124,7 +124,7 @@ class YouTubeDownloaderApp(ctk.CTk):
                                                 weight="bold" if bold else "normal"), **kwargs)
 
         def button(parent, text, command, primary=False, **kwargs):
-            button_class = AuroraButton if primary else ctk.CTkButton
+            button_class = GradientButton if primary else ctk.CTkButton
             return button_class(parent, text=text, command=command, height=42,
                                 corner_radius=12, fg_color=accent if primary else inset,
                                 hover_color=hover if primary else border,
@@ -137,10 +137,10 @@ class YouTubeDownloaderApp(ctk.CTk):
         sidebar.grid_propagate(False)
         sidebar.grid_columnconfigure(0, weight=1)
         sidebar.grid_rowconfigure(5, weight=1)
-        self.brand_image = ctk.CTkImage(Image.open(RESOURCE_DIR / "assets" / "aurora-icon.png"), size=(48, 48))
+        self.brand_image = ctk.CTkImage(Image.open(RESOURCE_DIR / "assets" / "product-icon.png"), size=(48, 48))
         ctk.CTkLabel(sidebar, text="", image=self.brand_image).grid(row=0, column=0, sticky="w", padx=22, pady=(28, 12))
         label(sidebar, "YT Downloader", 18, True).grid(row=1, column=0, sticky="w", padx=22)
-        label(sidebar, "A U R O R A  /  G L A S S", 10, color=muted).grid(row=2, column=0, sticky="w", padx=22, pady=(0, 36))
+        label(sidebar, "P R O  /  D E S K T O P", 10, color=muted).grid(row=2, column=0, sticky="w", padx=22, pady=(0, 36))
         label(sidebar, "   Download studio", 13, True, color="white", fg_color=("#ad83dc", "#5b4b83"),
               corner_radius=12, height=44, anchor="w").grid(row=3, column=0, sticky="ew", padx=14)
         button(sidebar, "Open downloads", self.open_output_folder).grid(row=4, column=0, sticky="ew", padx=14, pady=10)

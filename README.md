@@ -1,15 +1,15 @@
 <p align="center">
-  <img src="assets/aurora-readme-header.svg" alt="YT Downloader Pro — Aurora Glass desktop app" width="100%">
+  <img src="assets/product-header.svg" alt="YT Downloader Pro desktop app" width="100%">
 </p>
 
 <p align="center">
   <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38680846841/artifacts/11948111280">
-    <img src="assets/aurora-download-v2.svg" alt="DOWNLOAD &amp; INSTALL — Windows 10/11" width="360" height="74">
+    <img src="assets/download-button.svg" alt="DOWNLOAD &amp; INSTALL — Windows 10/11" width="360" height="74">
   </a>
 </p>
 
 <p align="center">
-  <strong>Version 1.2.0 · Windows x64 · Python, FFmpeg and Deno included</strong><br>
+  <strong>Version 1.2.1 · Windows x64 · Python, FFmpeg and Deno included</strong><br>
   GitHub sign-in required to download the ZIP. Extract it and run <code>YT-Downloader-Pro-Setup.exe</code>.<br>
   <a href="#install-on-windows-no-python-required">Installation instructions</a> ·
   <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/workflows/windows-installer.yml">All installer builds</a>
@@ -24,11 +24,11 @@ A modern Windows desktop GUI for downloading YouTube videos that you own or have
 ## Highlights
 
 <p align="center">
-  <img src="assets/aurora-features.svg" alt="MP4 video up to 4K, MP3 audio and bundled tools" width="100%">
+  <img src="assets/product-features.svg" alt="MP4 video up to 4K, MP3 audio and bundled tools" width="100%">
 </p>
 
 - Modern studio layout with a sidebar, dedicated link bar, settings and video preview
-- Aurora Glass styling: purple-to-cyan gradient buttons, frosted-style panels and matching app icon
+- Interface styling: purple-to-cyan gradient buttons, frosted-style panels and matching app icon
 - Readable typography, soft borders and Dark / Light / System themes
 - Scrollable panels and persistent download controls on smaller windows
 - Paste + Analyze workflow
@@ -96,7 +96,7 @@ python youtube_downloader.py
 
 <p align="center">
   <a href="https://github.com/Dilanga-Malshan/yt-downloader-tool/actions/runs/38680846841/artifacts/11948111280">
-    <img src="assets/aurora-download-v2.svg" alt="Download Aurora Glass for Windows" width="360" height="74">
+    <img src="assets/download-button.svg" alt="Download YT Downloader Pro for Windows" width="360" height="74">
   </a>
 </p>
 
